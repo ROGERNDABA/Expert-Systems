@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from array import *
 import sys
 import os.path
 
@@ -18,11 +17,12 @@ if len(sys.argv) == 2:
 		col = []
 		i = 0
 		for line in f:
+			# print(line)
 			if line[0] == '#':
 				continue
 			x = line.split()
-			if "#" in x:
-				x2 = x[:x.index("#")]
+			x2 = x[:x.index("#")] if "#" in x else x
+			if x2:
 				col.append(x2)
 		for vals in col:
 			print(vals)
