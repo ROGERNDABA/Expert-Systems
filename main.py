@@ -24,14 +24,14 @@ if len(sys.argv) == 2:
 			col.append(x[:l[0]]) if l else col.append(x)
 
 		############# printing ##################
-		
+
 		for vals in col:
 			row_format = '{:<6}' * (len(vals))
 			print (row_format.format(*vals))
 
 		############# printing end ##############
 	else:
-		print('\033[91mno such file\033[0m')
+		print('\033[91mno such file or directory\033[0m')
 else:
 	print('\033[91minvalid number of arguments\033[0m')
 
