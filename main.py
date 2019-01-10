@@ -70,4 +70,5 @@ if len(sys.argv) == 2:
 else:
 	print('\033[91minvalid number of arguments\033[0m')
 
-#
+# reserved for next attempt
+#^[A-Z]*(=>|<=>)[A-Z]*$
