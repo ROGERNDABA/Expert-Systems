@@ -4,8 +4,18 @@ import os.path
 import re
 
 class Handler:
+
+	# In other languages it's called a constructor
+
 	def __init__(self):
 		self.init = 1
+
+	# Take all available options from the input file
+	
+	# Also sets options as keys with their corresponding -
+	# facts (True|False) as values in a dictionary then
+	# returns the dictionary
+
 	def getOptions(self, col1):
 		options = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 		listString = ''.join(list(map(''.join, col1)))
@@ -14,7 +24,13 @@ class Handler:
 			if x in listString:
 				optDict[x] = False
 		return (optDict)
-	def validateAvailableOptins(self, factDict, col2):
+
+	#  Goes though the dictionary and change all the given options' -
+	# facts from False to true then return the updated fact dictionary
+
+	def validateAvailableOptins(self, col1):
+		col2 = list(map(''.join, col1))
+		factDict = self.getOptions(col1)
 		r = re.compile(r'\?[A-Z]*$')
 		newlist = list(filter(r.match, col2))
 		if len(newlist) == 1:
@@ -37,9 +53,7 @@ if len(sys.argv) == 2:
 			x = line.split()
 			l = [x.index(i) for i in x if '#' in i]
 			col1.append(x[:l[0]]) if l else col1.append(x)
-		col2 = list(map(''.join, col1))
-		factDict = handler.getOptions(col1)
-		handler.validateAvailableOptins(factDict, col2)
+		print (handler.validateAvailableOptins(col1))
 
 
 		############# printing ##################
