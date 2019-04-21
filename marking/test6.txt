@@ -9,6 +9,9 @@ A | B + C => E
 #=F #E should be false.
 #=G #E should be false.
 #=H #E should be false.
+
 #=FH #E should be true.
+
 #=GH #E should be true.
+
 ?E
