@@ -4,6 +4,7 @@ import sys
 import os.path
 import re
 import handler
+from pprint import pprint
 
 
 FactHandler = handler.FactHandler()
@@ -20,11 +21,16 @@ if len(sys.argv) == 2:
             l = [x.index(i) for i in x if "#" in i]
             validFileLines.append(x[: l[0]]) if l else validFileLines.append(x)
         validFacts = FactHandler.validateAvailableOptions(validFileLines)
-        validFileLines = [" ".join(listItem) for listItem in validFileLines if listItem]
-        print(validFileLines)
-        print(json.dumps(validFacts, indent=2))
-        # print(*col1, sep="\n ")
+        validFileLines = ["".join(listItem) for listItem in validFileLines if listItem]
 
+        # print(validFileLines[-1])
+        validFileLines = [
+            re.findall(r"\([^()]*\)|<?=>|[-+/*|^]|\w+", listItem)
+            for listItem in validFileLines[:-2]
+        ]
+        # print()
+        # print(json.dumps(validFacts, indent=2))
+        # print(eval("True or True"))
         ############# printing ##################
 
         # for vals in col1:
