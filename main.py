@@ -42,12 +42,17 @@ if len(sys.argv) == 2:
 					"^" : "!="}
 		while restart:
 			for part in validFileLines:
-				# if re.match(r"[A-Z]\W[+|^]\W[A-Z]\W=>\W[A-Z]$", part):
-				part1 = replace_all(part, validFacts)
-				part1 = replace_all(part1, operands)
-				part1 = part1.split(" => ")
-				print(eval(part1[0]))
-			restart = False
+				part1 = replace_all(replace_all(part, validFacts), operands)
+				part1 = re.split("\W=>\W|\W<=>\W", part1)
+				part = re.split("\W=>\W|\W<=>\W", part)
+				if re.match(r"[A-Z]$", part[1]):
+					if eval(part1[1]) == False and eval(part1[0]) == True:
+						validFacts[part[1]] = True
+				# elif re.match(r"[A-Z]\W\+\W[A-Z]", part[1]):
+				# 	print(part)
+				# print(eval(part1[0]))
+				restart = False
+			print(json.dumps(validFacts, indent=2))
 		print(lexer)
 		validFileLines = [
 			re.findall(r"\([^()]*\)|<?=>|[-+/*|^]|\w+", listItem)
@@ -56,7 +61,6 @@ if len(sys.argv) == 2:
 
 		# print()
 		# print(json.dumps(validFileLines, indent=2))
-		print(eval("( not True and True or False )"))
 		############# printing ##################
 
 		# for vals in col1:
