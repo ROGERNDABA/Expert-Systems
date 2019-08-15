@@ -9,12 +9,19 @@ from pprint import pprint
 
 FactHandler = handler.FactHandler()
 
+
 def replace_all(text, dic):
 	for i, j in dic.items():
 		text = text.replace(i, str(j))
 		text = text.replace("Falsealse", "False")
 		text = text.replace("Truerue", "True")
 	return text
+
+
+def split(word):
+	word = word.replace(" ", "")
+	return [char for char in word]
+
 
 if len(sys.argv) == 2:
 	if os.path.exists(sys.argv[1]) == True:
@@ -36,10 +43,7 @@ if len(sys.argv) == 2:
 		lexer = ""
 		restart = True
 
-		operands = {"+" : "and",
-					"!" : "not ",
-					"|" : "or",
-					"^" : "!="}
+		operands = {"+": "and", "!": "not ", "|": "or", "^": "!="}
 		while restart:
 			for part in validFileLines:
 				part1 = replace_all(replace_all(part, validFacts), operands)
@@ -48,10 +52,11 @@ if len(sys.argv) == 2:
 				if re.match(r"[A-Z]$", part[1]):
 					if eval(part1[1]) == False and eval(part1[0]) == True:
 						validFacts[part[1]] = True
-				# elif re.match(r"[A-Z]\W\+\W[A-Z]", part[1]):
-				# 	print(part)
-				# print(eval(part1[0]))
+				else:
+					print(part)
 				restart = False
+				# elif re.match(r"[A-Z]\W\+\W[A-Z]", part[1]):
+				# print(eval(part1[0]))
 			print(json.dumps(validFacts, indent=2))
 		print(lexer)
 		validFileLines = [
