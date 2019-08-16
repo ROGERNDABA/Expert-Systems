@@ -1,4 +1,0 @@
-{
-    "python.pythonPath": "/goinfre/rmdaba/.brew/bin/python3",
-    "python.formatting.provider": "black"
-}
